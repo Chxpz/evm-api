@@ -4,7 +4,7 @@ export const readState = async ({
   contract,
   functionName,
   functionArgs,
-}: readStateParams): Promise<ContractResponse> => {
+}: readStateParams): Promise<any> => {
   try {
     return await contract[functionName](...functionArgs);
   } catch (error: any) {

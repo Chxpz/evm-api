@@ -39,6 +39,19 @@ export type GetContractParams = {
 };
 
 export type ContractResponse = {
-  result: any;
-  error: string | null;
+  ret: any;
+};
+
+export type GetBalanceData = {
+  data: {
+    results: {
+      address: string;
+      balance: BigNumberish;
+    }[];
+  };
+};
+
+export type GetErc20BalanceControllerParams = {
+  addresses: string[];
+  contractAddress: string;
 };
