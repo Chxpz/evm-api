@@ -29,6 +29,7 @@ export type readStateParams = {
   contract: Contract;
   functionName: string;
   functionArgs: any[];
+  blockTag?: number | string;
 };
 
 export type GetContractParams = {
@@ -54,4 +55,10 @@ export type GetBalanceData = {
 export type GetErc20BalanceControllerParams = {
   addresses: string[];
   contractAddress: string;
+  blockTag?: number | string;
+};
+
+export type GetEthBalanceControllerParams = {
+  addresses: string[];
+  blockTag?: number | string;
 };

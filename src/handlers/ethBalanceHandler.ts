@@ -6,7 +6,8 @@ dotenv.config();
 
 export const getEthBalanceHandler = async (
   address: string[],
-  ethers: Ethers
+  ethers: Ethers,
+  blockTag: number | string
 ): Promise<GetBalanceData> => {
   if (!process.env.PRIVATE_KEY) {
     throw new Error("PRIVATE_KEY not found in .env file");
@@ -20,7 +21,8 @@ export const getEthBalanceHandler = async (
   const balance: GetBalanceData = await getEthBalance(
     address,
     provider,
-    ethers
+    ethers,
+    blockTag
   );
   return balance;
 };

@@ -8,7 +8,8 @@ dotenv.config();
 export const getErc20BalanceHandler = async (
   address: string[],
   ethers: Ethers,
-  contractAddress: string
+  contractAddress: string,
+  blockTag: number | string
 ): Promise<GetBalanceData> => {
   if (!process.env.PRIVATE_KEY) {
     throw new Error("PRIVATE_KEY not found in .env file");
@@ -23,7 +24,8 @@ export const getErc20BalanceHandler = async (
     address,
     ethers,
     signer,
-    contractAddress
+    contractAddress,
+    blockTag
   );
 
   return balance;

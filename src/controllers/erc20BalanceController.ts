@@ -9,12 +9,14 @@ export const erc20BalanceController = async (
   next: NextFunction
 ) => {
   try {
-    const { addresses, contractAddress } =
+    const { addresses, contractAddress, blockTag } =
       req.body as GetErc20BalanceControllerParams;
+
     const balances = await getErc20BalanceHandler(
       addresses,
       ethers,
-      contractAddress
+      contractAddress,
+      blockTag ? +blockTag : "latest"
     );
     res.send(balances);
   } catch (error) {

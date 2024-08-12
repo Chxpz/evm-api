@@ -7,7 +7,6 @@ import {
   Provider,
 } from "types";
 import { readState, getContract } from "@services/blockchain";
-import exp from "constants";
 
 const configContract = {
   functionName: "balanceOf",
@@ -18,11 +17,13 @@ export const getErc20Balance = async (
   addresses: string[],
   ethers: Ethers,
   signer: Signer,
-  contractAddress: string
+  contractAddress: string,
+  blockTag: number | string
 ): Promise<GetBalanceData> => {
   if (!addresses || addresses.length === 0) {
     throw new Error("No addresses provided");
   }
+
   const results = await Promise.all(
     addresses.map(async (address) => {
       try {
@@ -37,6 +38,7 @@ export const getErc20Balance = async (
           contract,
           functionName: configContract.functionName,
           functionArgs: [address],
+          blockTag,
         });
 
         return {
@@ -60,11 +62,11 @@ export const getErc20Balance = async (
   };
 };
 
-//Return the ETH balance of the address
 export const getEthBalance = async (
   addresses: string[],
   provider: Provider,
-  ethers: Ethers
+  ethers: Ethers,
+  blockTag: number | string
 ): Promise<GetBalanceData> => {
   if (!addresses || addresses.length === 0) {
     throw new Error("No addresses provided");
@@ -73,7 +75,7 @@ export const getEthBalance = async (
   const results = await Promise.all(
     addresses.map(async (address) => {
       try {
-        const balanceWei = await provider.getBalance(address);
+        const balanceWei = await provider.getBalance(address, blockTag); // Adicionado blockTag
 
         const balance = ethers.formatEther(balanceWei);
 
