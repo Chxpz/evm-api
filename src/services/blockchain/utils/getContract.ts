@@ -1,15 +1,13 @@
-import { Contract, Signer } from "ethers";
-import { GetContractParams } from "types";
+import { GetContractParams, ContractType } from "types";
 
 export const getContract = async ({
   ethers,
-  signer,
+  provider,
   contractAddress,
   abi,
-}: GetContractParams): Promise<Contract> => {
+}: GetContractParams): Promise<ContractType> => {
   try {
-    const contract = new ethers.Contract(contractAddress, abi, signer);
-    return contract;
+    return new ethers.Contract(contractAddress, abi, provider);
   } catch (error) {
     console.error("Error in getContract:", error);
     throw error;

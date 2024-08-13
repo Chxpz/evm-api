@@ -34,7 +34,7 @@ export type readStateParams = {
 
 export type GetContractParams = {
   ethers: Ethers;
-  signer: Signer;
+  provider: Provider;
   contractAddress: string;
   abi: any;
 };

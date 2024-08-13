@@ -9,7 +9,7 @@ const configContract = {
 export const getErc20Balance = async (
   addresses: string[],
   ethers: Ethers,
-  signer: Signer,
+  provider: Provider,
   contractAddress: string,
   blockTag: number | string
 ): Promise<GetBalanceData> => {
@@ -19,11 +19,11 @@ export const getErc20Balance = async (
     throw new Error("No addresses provided");
   }
 
-  if (!signer.provider) {
+  if (!provider) {
     throw new Error("No provider found");
   }
 
-  if (await checkDeploy(contractAddress, signer.provider, +blockTag)) {
+  if (await checkDeploy(contractAddress, provider, +blockTag)) {
     throw new Error("Contract not deployed yet");
   }
 
@@ -32,7 +32,7 @@ export const getErc20Balance = async (
       try {
         const contract = await getContract({
           ethers,
-          signer,
+          provider,
           contractAddress,
           abi: configContract.abi,
         });
