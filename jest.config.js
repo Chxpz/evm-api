@@ -8,7 +8,7 @@ module.exports = {
       '^@routes/(.*)$': '<rootDir>/src/routes/$1',
       '^@middlewares/(.*)$': '<rootDir>/src/middlewares/$1',
       '^@types/(.*)$': '<rootDir>/src/types/$1',
-      // '^@(.*)$': '<rootDir>/src/$1',  // Comentado temporariamente
+      '^@app/(.*)$': '<rootDir>/src/$1',
     },
     setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
     collectCoverage: true,

@@ -8,8 +8,7 @@ export const getContract = async ({
 }: GetContractParams): Promise<ContractType> => {
   try {
     return new ethers.Contract(contractAddress, abi, provider);
-  } catch (error) {
-    console.error("Error in getContract:", error);
-    throw error;
+  } catch (error: any) {
+    throw new Error(`Error fetching contract: ${error.message}`);
   }
 };

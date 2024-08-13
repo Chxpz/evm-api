@@ -6,7 +6,6 @@ const errorMiddleware = (
   res: Response,
   next: NextFunction
 ): void => {
-  console.error(err.stack);
   res.status(500).json({ message: err.message });
 };
 
