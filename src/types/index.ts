@@ -11,7 +11,7 @@ export type Signer = ethers.Signer;
 
 export type BigNumberish = ethers.BigNumberish;
 
-export type Provider = ethers.JsonRpcProvider;
+export type Provider = ethers.JsonRpcProvider | ethers.Provider;
 
 export type GetProviderParams = {
   ethers: Ethers;

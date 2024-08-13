@@ -1,12 +1,5 @@
-import {
-  GetBalanceData,
-  BigNumberish,
-  Ethers,
-  Signer,
-  ContractResponse,
-  Provider,
-} from "types";
-import { readState, getContract } from "@services/blockchain";
+import { GetBalanceData, BigNumberish, Ethers, Signer, Provider } from "types";
+import { readState, getContract, checkDeploy } from "@services/blockchain";
 
 const configContract = {
   functionName: "balanceOf",
@@ -20,8 +13,18 @@ export const getErc20Balance = async (
   contractAddress: string,
   blockTag: number | string
 ): Promise<GetBalanceData> => {
+  console.log("Checking ERC20 Balance");
+
   if (!addresses || addresses.length === 0) {
     throw new Error("No addresses provided");
+  }
+
+  if (!signer.provider) {
+    throw new Error("No provider found");
+  }
+
+  if (await checkDeploy(contractAddress, signer.provider, +blockTag)) {
+    throw new Error("Contract not deployed yet");
   }
 
   const results = await Promise.all(
@@ -54,7 +57,7 @@ export const getErc20Balance = async (
       }
     })
   );
-
+  console.log("Done");
   return {
     data: {
       results,
@@ -68,6 +71,8 @@ export const getEthBalance = async (
   ethers: Ethers,
   blockTag: number | string
 ): Promise<GetBalanceData> => {
+  console.log("Checking ETH Balance");
+
   if (!addresses || addresses.length === 0) {
     throw new Error("No addresses provided");
   }
@@ -92,6 +97,8 @@ export const getEthBalance = async (
       }
     })
   );
+
+  console.log("Done");
 
   return {
     data: {
